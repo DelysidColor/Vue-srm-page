@@ -16,7 +16,7 @@
         <tr
           :class="{ dark: index % 2 !== 0 }"
           v-for="(lesson, index) in paginatedLessons"
-          :key="lesson.dateAndTime">
+          :key="lesson.id">
           <td>
             {{ lesson.dateAndTime }}
           </td>
@@ -61,6 +61,7 @@ export default {
       type: Array,
       required: true,
     },
+    moduleSearch: "",
   },
   data() {
     return {
@@ -78,8 +79,18 @@ export default {
         };
       });
     },
+    filteredLessons() {
+      if (!this.moduleSearch) {
+        return this.formattedLessons;
+      }
+
+      const searchTerm = this.moduleSearch.toLowerCase();
+      return this.formattedLessons.filter((lesson) =>
+        lesson.moduleName.toLowerCase().includes(searchTerm)
+      );
+    },
     totalLessons() {
-      return this.formattedLessons.length;
+      return this.filteredLessons.length;
     },
     totalPages() {
       return Math.ceil(this.totalLessons / this.lessonsPerPage);
@@ -87,7 +98,7 @@ export default {
     paginatedLessons() {
       const start = (this.currentPage - 1) * this.lessonsPerPage;
       const end = start + this.lessonsPerPage;
-      return this.formattedLessons.slice(start, end);
+      return this.filteredLessons.slice(start, end);
     },
   },
   methods: {

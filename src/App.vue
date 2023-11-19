@@ -16,6 +16,8 @@ export default {
 <style>
 * {
   font-family: "Manrope", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 #app {

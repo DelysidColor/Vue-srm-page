@@ -1,7 +1,9 @@
 <template>
   <div class="navbar">
-    <div class="logo" @click="$router.push('/')">
-      <img src="@/assets/icons/logo.png" alt="logo" /> Сим Центр
+    <div class="navbar-header">
+      <div class="logo" @click="$router.push('/')">
+        <img src="@/assets/icons/logo.png" alt="logo" /> Сим Центр
+      </div>
     </div>
     <div class="navbar_btns">
       <router-link to="/schedule"
@@ -9,8 +11,10 @@
         Расписание</router-link
       >
       <router-link to="/sessions"
-        ><img src="@/assets/icons/sessions.png" alt="sessions" />Учебные
-        сессии</router-link
+        ><img
+          class="sessions-img"
+          src="@/assets/icons/sessions.png"
+          alt="sessions" />Учебные сессии</router-link
       >
       <router-link to="/rooms"
         ><img src="@/assets/icons/rooms.png" alt="rooms" />Список
@@ -40,7 +44,7 @@
           alt="archive" />Архив</router-link
       >
     </div>
-    <div class="nav-footer">
+    <div class="navbar-footer">
       <div class="teacher">
         <div>
           <div class="teacher-name">Барнаби Мармадюк</div>
@@ -81,7 +85,7 @@ export default {};
   color: rgba(47, 49, 68, 0.65);
 }
 
-.nav-footer {
+.navbar-footer {
   margin-top: 70px;
 }
 .select-img {
@@ -178,6 +182,7 @@ select {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-between;
   padding: 12px;
 }
 
@@ -198,6 +203,16 @@ select {
   transition: 0.5s;
 }
 
+.active img {
+  -webkit-filter: grayscale(100) brightness(200);
+  filter: grayscale(100) brightness(200);
+}
+
+.sessions-img {
+  filter: invert(53%) sepia(0%) saturate(5%) hue-rotate(135deg) brightness(150%)
+    contrast(41%);
+}
+
 a {
   display: flex;
   align-items: center;
@@ -212,16 +227,18 @@ a {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
   font-size: 24px;
   line-height: 28px;
   font-weight: 800;
-  margin-top: 30px;
-  margin-left: 45px;
-  margin-bottom: 60px;
+  margin-top: 11px;
+  margin-left: 30px;
 }
 
 .logo img {
   height: 45px;
+  margin-right: 10px;
 }
 
 .navbar_btns img {

@@ -3,14 +3,21 @@
     <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1">
       &lt;
     </button>
+    <span v-if="showFirstDots && firstPage" @click="goToPage(firstPage)">
+      {{ firstPage }}
+    </span>
     <span v-if="showFirstDots">...</span>
     <span
       v-for="pageNumber in visiblePages"
       :key="pageNumber"
+      :class="{ active: pageNumber === currentPage }"
       @click="goToPage(pageNumber)">
       {{ pageNumber }}
     </span>
     <span v-if="showLastDots">...</span>
+    <span v-if="showLastDots && lastPage" @click="goToPage(lastPage)">
+      {{ lastPage }}
+    </span>
     <button
       @click="goToPage(currentPage + 1)"
       :disabled="currentPage === totalPages">
@@ -27,7 +34,7 @@ export default {
   },
   computed: {
     visiblePages() {
-      const range = 5; // Number of visible pages
+      const range = 5;
       const start = Math.max(1, this.currentPage - Math.floor(range / 2));
       const end = Math.min(this.totalPages, start + range - 1);
 
@@ -41,6 +48,12 @@ export default {
         this.visiblePages.length > 0 &&
         this.visiblePages[this.visiblePages.length - 1] < this.totalPages
       );
+    },
+    lastPage() {
+      return this.totalPages > 5 ? this.totalPages : null;
+    },
+    firstPage() {
+      return this.showFirstDots ? 1 : null;
     },
   },
   methods: {
@@ -57,45 +70,42 @@ export default {
 .pagination {
   display: flex;
   align-items: center;
+  padding: 10px;
+  background-color: rgb(245, 247, 249);
 }
 
-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin: 0 5px;
-  padding: 8px 12px;
-  font-size: 14px;
-  transition: color 0.3s, border-color 0.3s, background-color 0.3s;
-}
-
-button:hover,
-button.active {
-  color: blue;
-  border-color: blue;
-}
-
-button.active {
-  background-color: grey;
-  color: white;
-}
-
+button,
 span {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: none;
+  border-radius: 8px;
+  box-sizing: border-box;
+  width: 25px;
+  height: 25px;
   margin: 0 5px;
-  padding: 8px 12px;
   font-size: 14px;
+  color: rgb(47, 49, 68);
   cursor: pointer;
   transition: color 0.3s, background-color 0.3s;
 }
 
-span:hover {
+button.active,
+span.active {
+  background-color: rgb(244, 244, 244);
+  border: 1px solid blue;
+  background-color: white;
   color: blue;
-  background-color: #f0f0f0; /* Adjust the background color on hover */
 }
 
-span.active {
-  background-color: grey;
-  color: white;
+button {
+  transition: color 0.3s, border-color 0.3s;
+}
+
+span:hover,
+button:hover {
+  background-color: lightgrey;
 }
 </style>
