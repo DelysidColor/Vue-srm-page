@@ -3,12 +3,62 @@
     <table>
       <thead>
         <tr class="table-header">
-          <th>Дата и время</th>
-          <th>Статус</th>
-          <th>Название учебного модуля</th>
-          <th>Тип Сессии</th>
-          <th>Комната</th>
-          <th>Группа</th>
+          <th @click="sort = { on: true, key: 'dateAndTime' }">
+            <div>
+              <div class="header-text">Дата и время</div>
+              <span
+                class="sort-arrow"
+                v-if="sort.on && sort.key === 'dateAndTime'"
+                >&#5167;</span
+              >
+            </div>
+          </th>
+          <th @click="sort = { on: true, key: 'status' }">
+            <div>
+              <div class="header-text">Статус</div>
+              <span class="sort-arrow" v-if="sort.on && sort.key === 'status'"
+                >&#5167;</span
+              >
+            </div>
+          </th>
+          <th @click="sort = { on: true, key: 'moduleName' }">
+            <div>
+              <div class="header-text">Название учебного модуля</div>
+              <span
+                class="sort-arrow"
+                v-if="sort.on && sort.key === 'moduleName'"
+                >&#5167;</span
+              >
+            </div>
+          </th>
+          <th @click="sort = { on: true, key: 'sessionType' }">
+            <div>
+              <div class="header-text">Тип Сессии</div>
+              <span
+                class="sort-arrow"
+                v-if="sort.on && sort.key === 'sessionType'"
+                >&#5167;</span
+              >
+            </div>
+          </th>
+          <th @click="sort = { on: true, key: 'roomNumber' }">
+            <div>
+              <div class="header-text">Комната</div>
+              <span
+                class="sort-arrow"
+                v-if="sort.on && sort.key === 'roomNumber'"
+                >&#5167;</span
+              >
+            </div>
+          </th>
+          <th @click="sort = { on: true, key: 'group' }">
+            <div>
+              <div class="header-text">Группа</div>
+              <span class="sort-arrow" v-if="sort.on && sort.key === 'group'"
+                >&#5167;</span
+              >
+            </div>
+          </th>
           <th></th>
         </tr>
       </thead>
@@ -67,6 +117,11 @@ export default {
     return {
       currentPage: 1,
       lessonsPerPage: 11,
+      sortStatus: false,
+      sort: {
+        on: false,
+        key: "",
+      },
     };
   },
   computed: {
@@ -98,6 +153,12 @@ export default {
     paginatedLessons() {
       const start = (this.currentPage - 1) * this.lessonsPerPage;
       const end = start + this.lessonsPerPage;
+      if (this.sort.on) {
+        return this.sortByKey(
+          this.filteredLessons.slice(start, end),
+          this.sort.key
+        );
+      }
       return this.filteredLessons.slice(start, end);
     },
   },
@@ -117,14 +178,40 @@ export default {
     handlePageChange(newPage) {
       this.currentPage = newPage;
     },
+    sortByKey(arr, key) {
+      return arr.sort((a, b) => {
+        if (a[key] < b[key]) {
+          return -1;
+        }
+
+        if (a[key] > b[key]) {
+          return 1;
+        }
+        return 0;
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
-td {
-  padding: 10px 16px;
-  height: 38px;
+th {
+  text-align: left;
+}
+
+th div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.header-text {
+  white-space: nowrap;
+}
+
+.sort-arrow {
+  font-weight: 300;
+  font-size: 12px;
 }
 
 .planned-status,

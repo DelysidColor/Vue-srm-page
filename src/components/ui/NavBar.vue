@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" :class="{ 'navbar-hide': navHide }">
     <div class="navbar-header">
       <div class="logo" @click="$router.push('/')">
         <img src="@/assets/icons/logo.png" alt="logo" /> Сим Центр
@@ -75,7 +75,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    navHide: {
+      type: Boolean,
+      default: false,
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -83,6 +90,11 @@ export default {};
   margin-top: 10px;
   font-size: 13px;
   color: rgba(47, 49, 68, 0.65);
+}
+
+.nav-toggle {
+  position: absolute;
+  right: 0;
 }
 
 .navbar-footer {
@@ -108,7 +120,6 @@ select {
   background-image: url("@/assets/icons/ruflag.png");
   background-repeat: no-repeat;
   background-position: 10px 50%;
-  position: relative;
 }
 
 select:hover,
@@ -184,6 +195,14 @@ select {
   align-items: flex-start;
   justify-content: space-between;
   padding: 12px;
+  box-sizing: border-box;
+  transition: width 0.2s linear;
+}
+
+.navbar-hide {
+  width: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .navbar_btns {

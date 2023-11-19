@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <NavBar />
-    <router-view />
+    <NavBar :navHide="navHide" />
+    <router-view @navHide="navHide = !navHide" />
   </div>
 </template>
 
@@ -10,6 +10,11 @@ import NavBar from "./components/ui/NavBar.vue";
 
 export default {
   components: { NavBar },
+  data() {
+    return {
+      navHide: false,
+    };
+  },
 };
 </script>
 

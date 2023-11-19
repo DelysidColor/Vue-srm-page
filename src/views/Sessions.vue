@@ -2,6 +2,7 @@
   <div class="page-body">
     <div class="wrapper">
       <div class="header">
+        <button class="nav-toggle" @click="$emit('navHide')">&#5176;</button>
         <div class="page-name">Учебные Сессии</div>
         <div class="controls">
           <input type="search" placeholder="Поиск" v-model="moduleSearch" />
@@ -32,7 +33,7 @@ export default {
         {
           dateAndTime: "2023-11-18T12:00:00",
           status: "запланирован",
-          moduleName: "Название учебного модуля 1",
+          moduleName: "Астрономия",
           sessionType: "урок",
           roomNumber: 42,
           group: "AB12",
@@ -41,7 +42,7 @@ export default {
         {
           dateAndTime: "2023-11-19T14:30:00",
           status: "идет",
-          moduleName: "Название учебного модуля 2",
+          moduleName: "Литература",
           sessionType: "экзамен",
           roomNumber: 21,
           group: "CD34",
@@ -50,7 +51,7 @@ export default {
         {
           dateAndTime: "2023-11-20T09:15:00",
           status: "завершено",
-          moduleName: "Название учебного модуля 3",
+          moduleName: "Химия",
           sessionType: "аккредитация",
           roomNumber: 55,
           group: "EF56",
@@ -59,7 +60,7 @@ export default {
         {
           dateAndTime: "2023-11-21T11:45:00",
           status: "идет",
-          moduleName: "Название учебного модуля 4",
+          moduleName: "Искусство",
           sessionType: "урок",
           roomNumber: 37,
           group: "GH78",
@@ -68,7 +69,7 @@ export default {
         {
           dateAndTime: "2023-11-22T16:00:00",
           status: "запланирован",
-          moduleName: "Название учебного модуля 5",
+          moduleName: "География",
           sessionType: "экзамен",
           roomNumber: 18,
           group: "IJ90",
@@ -77,7 +78,7 @@ export default {
         {
           dateAndTime: "2023-11-23T08:30:00",
           status: "завершено",
-          moduleName: "Название учебного модуля 6",
+          moduleName: "Физика",
           sessionType: "урок",
           roomNumber: 63,
           group: "KL12",
@@ -764,6 +765,7 @@ input {
   justify-content: space-between;
   width: 100%;
   align-items: center;
+  position: relative;
 }
 
 .controls {
@@ -779,5 +781,16 @@ input {
   color: white;
   border: none;
   border-radius: 12px;
+}
+
+.nav-toggle {
+  position: absolute;
+  left: -40px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: black;
+  color: white;
+  border: none;
 }
 </style>
